@@ -9,6 +9,7 @@ import re
 from pathlib import Path
 
 ARTIFACTS_DIR = Path(__file__).parent / "artifacts"
+HF_REPO_ID = os.environ.get("HF_ARTIFACTS_REPO", "Diogo2110/issue-salience-artifacts")
 
 st.set_page_config(
     page_title="Issue Salience Electoral Predictor",
@@ -19,7 +20,26 @@ st.set_page_config(
 
 
 @st.cache_data
+def download_from_hf():
+    """Download artifacts from HuggingFace Hub if not available locally."""
+    if (ARTIFACTS_DIR / "df_model.parquet").exists():
+        return True
+    try:
+        from huggingface_hub import snapshot_download
+        snapshot_download(
+            repo_id=HF_REPO_ID,
+            repo_type="dataset",
+            local_dir=str(ARTIFACTS_DIR),
+        )
+        return True
+    except Exception as e:
+        st.sidebar.error(f"Could not download artifacts: {e}")
+        return False
+
+
+@st.cache_data
 def load_artifacts():
+    download_from_hf()
     data = {}
 
     parquet_files = {
@@ -49,6 +69,7 @@ def load_artifacts():
 
 @st.cache_resource
 def load_topic_model():
+    download_from_hf()
     model_path = ARTIFACTS_DIR / "topic_model"
     if model_path.exists():
         from bertopic import BERTopic
