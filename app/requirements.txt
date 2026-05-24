@@ -1,0 +1,11 @@
+streamlit>=1.30.0
+bertopic
+sentence-transformers
+vaderSentiment
+transformers
+torch
+plotly
+pandas
+numpy
+joblib
+scikit-learn
