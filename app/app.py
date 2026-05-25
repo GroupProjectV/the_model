@@ -72,8 +72,20 @@ def load_topic_model():
     download_from_hf()
     model_path = ARTIFACTS_DIR / "topic_model"
     if model_path.exists():
+        import torch
         from bertopic import BERTopic
-        return BERTopic.load(str(model_path))
+        from safetensors.torch import load_file
+        import joblib, io
+
+        # Patch torch.load to force CPU when model was saved on GPU
+        original_load = torch.load
+        torch.load = lambda *args, **kwargs: original_load(
+            *args, **{**kwargs, "map_location": torch.device("cpu"), "weights_only": False}
+        )
+        try:
+            return BERTopic.load(str(model_path))
+        finally:
+            torch.load = original_load
     return None
 
 
