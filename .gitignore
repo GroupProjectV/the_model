@@ -1,0 +1,27 @@
+# Backup files
+*.bak
+*.bak2
+*.bak3
+*.ipynb.bak*
+
+# BERTopic model directory (777MB, exceeds GitHub 100MB single-file limit)
+app_artifacts/topic_model
+app_artifacts/topic_model/
+
+# Executed notebook intermediates exceed 100MB GitHub hard limit (HTML exports preserve outputs)
+the model.executed.ipynb
+the model (theory-driven).executed.ipynb
+the model (theory-driven v2).executed.ipynb
+the model (theory-driven).html
+
+# Intermediate standalone files
+theory_standalone.ipynb
+theory_standalone.executed.ipynb
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS
+.DS_Store

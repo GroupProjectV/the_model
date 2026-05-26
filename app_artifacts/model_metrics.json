@@ -1,0 +1,23 @@
+{
+  "coherence": 0.4344,
+  "diversity": 0.718,
+  "outlier_pct": 30.8,
+  "num_topics": 428,
+  "best_model": "Logistic Regression",
+  "best_accuracy": 0.565,
+  "best_f1": 0.561,
+  "model_results": {
+    "Logistic Regression": {
+      "accuracy": 0.565,
+      "f1_weighted": 0.561
+    },
+    "Random Forest": {
+      "accuracy": 0.478,
+      "f1_weighted": 0.442
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.457,
+      "f1_weighted": 0.448
+    }
+  }
+}
